@@ -1,0 +1,110 @@
+name: itsGOtime
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: itsGOtime-${{ github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Debug info
+        run: |
+          echo "=== Debug info ==="
+          echo "Event name: $GITHUB_EVENT_NAME"
+          echo "Run ID: $GITHUB_RUN_ID"
+          echo "Run number: $GITHUB_RUN_NUMBER"
+          date -u
+          echo "=== Event payload (if present) ==="
+          if [ -f "$GITHUB_EVENT_PATH" ]; then
+            cat "$GITHUB_EVENT_PATH"
+          else
+            echo "No GITHUB_EVENT_PATH available"
+          fi
+          echo "=================="
+
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      - name: Ensure go modules
+        run: |
+          go mod tidy
+          go list -m all
+
+      - name: Prepare gh-pages folder
+        env:
+          REPO: ${{ github.repository }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          rm -rf gh-pages
+
+          # If gh-pages exists on remote, clone it
+          if git ls-remote --exit-code origin gh-pages; then
+            git clone --branch gh-pages --single-branch "https://github.com/${REPO}.git" gh-pages
+          else
+            # Create gh-pages branch locally
+            mkdir gh-pages
+            cd gh-pages
+            git init
+            git checkout -b gh-pages
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            echo "<h1>Initial gh-pages branch</h1>" > index.html
+            git add index.html
+            git commit -m "init gh-pages"
+            git remote add origin "https://x-access-token:${TOKEN}@github.com/${REPO}.git"
+            git push -u origin gh-pages
+            cd ..
+          fi
+
+      - name: Run checker
+        run: |
+          go run ./cmd/checker
+          cat status.json || true
+
+      - name: Copy files to gh-pages
+        run: |
+          cp -f status.json gh-pages/status.json || true
+          if [ -f history.json ]; then cp -f history.json gh-pages/history.json || true; fi
+          cp -f web/index.html gh-pages/index.html || true
+
+      - name: Commit changes to gh-pages
+        env:
+          REPO: ${{ github.repository }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          cd gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add status.json history.json index.html || true
+
+          if git diff --staged --quiet; then
+            echo "no changes"
+          else
+            git commit -m "update $(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+            git push "https://x-access-token:${TOKEN}@github.com/${REPO}.git" HEAD:gh-pages
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: status-json
+          path: status.json

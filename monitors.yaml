@@ -1,0 +1,18 @@
+interval_seconds: 60
+
+targets:
+  - name: example
+    url: https://example.com
+    method: GET
+    expect_status: 200
+    retries: 1
+    timeout_seconds: 8
+    interval_seconds: 60
+
+  - name: google
+    url: https://www.google.com
+    method: HEAD
+    expect_status: 200
+    retries: 1
+    timeout_seconds: 5
+    interval_seconds: 60

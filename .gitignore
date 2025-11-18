@@ -1,0 +1,7 @@
+/gh-pages
+/status.json
+/history.json
+/bin
+*.exe
+*.log
+    
