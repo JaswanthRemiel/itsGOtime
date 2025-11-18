@@ -11,6 +11,10 @@
     {
       "timestamp": "2025-11-18T19:48:40Z",
       "up": true
+    },
+    {
+      "timestamp": "2025-11-18T19:59:31Z",
+      "up": true
     }
   ],
   "google": [
@@ -24,6 +28,10 @@
     },
     {
       "timestamp": "2025-11-18T19:48:40Z",
+      "up": true
+    },
+    {
+      "timestamp": "2025-11-18T19:59:31Z",
       "up": true
     }
   ]
