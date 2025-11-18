@@ -1,0 +1,14 @@
+{
+  "example": [
+    {
+      "timestamp": "2025-11-18T19:25:08Z",
+      "up": true
+    }
+  ],
+  "google": [
+    {
+      "timestamp": "2025-11-18T19:25:08Z",
+      "up": true
+    }
+  ]
+}
