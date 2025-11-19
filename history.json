@@ -75,6 +75,10 @@
     {
       "timestamp": "2025-11-19T04:55:32Z",
       "up": true
+    },
+    {
+      "timestamp": "2025-11-19T05:22:27Z",
+      "up": true
     }
   ],
   "google": [
@@ -152,6 +156,10 @@
     },
     {
       "timestamp": "2025-11-19T04:55:33Z",
+      "up": true
+    },
+    {
+      "timestamp": "2025-11-19T05:22:27Z",
       "up": true
     }
   ]
