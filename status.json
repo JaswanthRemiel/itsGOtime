@@ -1,21 +1,21 @@
 {
-  "generated_at": "2025-11-19T09:39:30Z",
+  "generated_at": "2025-11-19T09:51:18Z",
   "results": [
     {
       "name": "example",
       "url": "https://example.com",
-      "timestamp": "2025-11-19T09:39:30Z",
+      "timestamp": "2025-11-19T09:51:18Z",
       "up": true,
       "status": 200,
-      "latency_ms": 58
+      "latency_ms": 69
     },
     {
       "name": "google",
       "url": "https://www.google.com",
-      "timestamp": "2025-11-19T09:39:30Z",
+      "timestamp": "2025-11-19T09:51:18Z",
       "up": true,
       "status": 200,
-      "latency_ms": 36
+      "latency_ms": 19
     }
   ]
 }
