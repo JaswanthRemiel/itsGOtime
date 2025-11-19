@@ -219,6 +219,10 @@
     {
       "timestamp": "2025-11-19T17:44:52Z",
       "up": true
+    },
+    {
+      "timestamp": "2025-11-19T17:55:58Z",
+      "up": true
     }
   ],
   "google": [
@@ -440,6 +444,10 @@
     },
     {
       "timestamp": "2025-11-19T17:44:52Z",
+      "up": true
+    },
+    {
+      "timestamp": "2025-11-19T17:55:58Z",
       "up": true
     }
   ]
