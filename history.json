@@ -175,6 +175,10 @@
     {
       "timestamp": "2025-11-19T13:59:18Z",
       "up": true
+    },
+    {
+      "timestamp": "2025-11-19T14:30:06Z",
+      "up": true
     }
   ],
   "google": [
@@ -352,6 +356,10 @@
     },
     {
       "timestamp": "2025-11-19T13:59:18Z",
+      "up": true
+    },
+    {
+      "timestamp": "2025-11-19T14:30:06Z",
       "up": true
     }
   ]
