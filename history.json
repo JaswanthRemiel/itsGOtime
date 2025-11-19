@@ -99,6 +99,10 @@
     {
       "timestamp": "2025-11-19T07:11:17Z",
       "up": true
+    },
+    {
+      "timestamp": "2025-11-19T07:31:28Z",
+      "up": true
     }
   ],
   "google": [
@@ -200,6 +204,10 @@
     },
     {
       "timestamp": "2025-11-19T07:11:17Z",
+      "up": true
+    },
+    {
+      "timestamp": "2025-11-19T07:31:31Z",
       "up": true
     }
   ]
