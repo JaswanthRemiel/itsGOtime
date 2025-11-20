@@ -1,10 +1,6 @@
 {
   "example": [
     {
-      "timestamp": "2025-11-19T20:33:28Z",
-      "up": true
-    },
-    {
       "timestamp": "2025-11-19T20:45:27Z",
       "up": true
     },
@@ -239,13 +235,13 @@
     {
       "timestamp": "2025-11-20T18:50:46Z",
       "up": true
+    },
+    {
+      "timestamp": "2025-11-20T19:09:21Z",
+      "up": true
     }
   ],
   "google": [
-    {
-      "timestamp": "2025-11-19T20:33:28Z",
-      "up": true
-    },
     {
       "timestamp": "2025-11-19T20:45:27Z",
       "up": true
@@ -480,6 +476,10 @@
     },
     {
       "timestamp": "2025-11-20T18:50:46Z",
+      "up": true
+    },
+    {
+      "timestamp": "2025-11-20T19:09:21Z",
       "up": true
     }
   ]
