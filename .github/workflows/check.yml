@@ -2,7 +2,7 @@ name: itsGOtime
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: "*/5 * * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -25,46 +25,12 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.21'
+          go-version: "1.21"
 
       - name: Ensure go modules
         run: |
           go mod tidy
           go list -m all
-
-      - name: Run checker
-        run: |
-          go run ./cmd/checker
-          # status.json and history.json are produced in root
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - name: Install frontend dependencies
-        working-directory: frontend
-        run: pnpm install --no-frozen-lockfile
-        env:
-          npm_config_registry: https://registry.npmjs.org/
-
-      - name: Prepare frontend assets
-        run: |
-          mkdir -p frontend/public
-          cp status.json frontend/public/
-          if [ -f history.json ]; then cp history.json frontend/public/; fi
-
-      - name: Build frontend
-        working-directory: frontend
-        env:
-          NEXT_PUBLIC_BASE_PATH: "/${{ github.event.repository.name }}"
-          NEXT_TELEMETRY_DISABLED: 1
-        run: pnpm run build
 
       - name: Prepare gh-pages folder
         env:
@@ -92,6 +58,44 @@ jobs:
             git push -u origin gh-pages
             cd ..
           fi
+
+      - name: Run checker
+        run: |
+          go run ./cmd/checker
+          # status.json is produced in root, history.json in gh-pages/
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: pnpm install --no-frozen-lockfile
+        env:
+          npm_config_registry: https://registry.npmjs.org/
+
+      - name: Prepare frontend assets
+        run: |
+          mkdir -p frontend/public
+          cp status.json frontend/public/
+          if [ -f gh-pages/history.json ]; then
+            cp gh-pages/history.json frontend/public/
+          elif [ -f history.json ]; then
+            cp history.json frontend/public/
+          fi
+
+      - name: Build frontend
+        working-directory: frontend
+        env:
+          NEXT_PUBLIC_BASE_PATH: "/${{ github.event.repository.name }}"
+          NEXT_TELEMETRY_DISABLED: 1
+        run: pnpm run build
 
       - name: Sync output to gh-pages
         run: |
