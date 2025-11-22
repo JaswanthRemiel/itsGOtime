@@ -105,7 +105,12 @@ export function Dashboard() {
           <div className="flex items-center space-x-2 text-muted-foreground">
             <Clock className="h-4 w-4" />
             <span className="text-sm">
-              Last updated: {loading ? "Updating..." : data?.generated_at}
+              Last updated:{" "}
+              {loading
+                ? "Updating..."
+                : data?.generated_at
+                ? new Date(data.generated_at).toLocaleString()
+                : ""}
             </span>
           </div>
         </div>
