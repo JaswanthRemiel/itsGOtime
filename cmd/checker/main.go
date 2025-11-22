@@ -91,8 +91,8 @@ func saveJSON(path string, v interface{}) error {
 	return ioutil.WriteFile(path, b, 0644)
 }
 
-func nowUTC() time.Time {
-	return time.Now().UTC()
+func now() time.Time {
+	return time.Now()
 }
 
 func shouldCheck(last []HistoryPoint, intervalSec int) bool {
@@ -108,7 +108,7 @@ func shouldCheck(last []HistoryPoint, intervalSec int) bool {
 		return true
 	}
 	next := t.Add(time.Duration(intervalSec) * time.Second)
-	return nowUTC().After(next) || nowUTC().Equal(next)
+	return now().After(next) || now().Equal(next)
 }
 
 func performCheck(t Target) (CheckResult, error) {
@@ -147,7 +147,7 @@ func performCheck(t Target) (CheckResult, error) {
 			return CheckResult{
 				Name:      t.Name,
 				URL:       t.URL,
-				Timestamp: nowUTC().Format(time.RFC3339),
+				Timestamp: now().Format(time.RFC3339),
 				Up:        false,
 				Status:    0,
 				LatencyMs: latency.Milliseconds(),
@@ -165,7 +165,7 @@ func performCheck(t Target) (CheckResult, error) {
 	return CheckResult{
 		Name:      t.Name,
 		URL:       t.URL,
-		Timestamp: nowUTC().Format(time.RFC3339),
+		Timestamp: now().Format(time.RFC3339),
 		Up:        up,
 		Status:    finalStatus,
 		LatencyMs: latency.Milliseconds(),
@@ -209,14 +209,20 @@ func main() {
 				Timestamp: res.Timestamp,
 				Up:        res.Up,
 			})
-			history[t.Name] = limitHistoryPoints(history[t.Name], 60)
+			// Keep 24 hours of history
+			// 24 hours * 3600 seconds / interval = number of points
+			maxPoints := 86400 / interval
+			if maxPoints < 1 {
+				maxPoints = 1
+			}
+			history[t.Name] = limitHistoryPoints(history[t.Name], maxPoints)
 		} else {
 			if len(lastPoints) > 0 {
 				latest := lastPoints[len(lastPoints)-1]
 				results = append(results, CheckResult{
 					Name:      t.Name,
 					URL:       t.URL,
-					Timestamp: nowUTC().Format(time.RFC3339),
+					Timestamp: now().Format(time.RFC3339),
 					Up:        latest.Up,
 					Status:    0,
 					LatencyMs: 0,
@@ -232,7 +238,12 @@ func main() {
 					Timestamp: res.Timestamp,
 					Up:        res.Up,
 				})
-				history[t.Name] = limitHistoryPoints(history[t.Name], 60)
+				// Keep 24 hours of history
+				maxPoints := 86400 / interval
+				if maxPoints < 1 {
+					maxPoints = 1
+				}
+				history[t.Name] = limitHistoryPoints(history[t.Name], maxPoints)
 			}
 		}
 	}
@@ -241,7 +252,7 @@ func main() {
 		GeneratedAt string        `json:"generated_at"`
 		Results     []CheckResult `json:"results"`
 	}{
-		GeneratedAt: nowUTC().Format(time.RFC3339),
+		GeneratedAt: now().Format(time.RFC3339),
 		Results:     results,
 	}
 
