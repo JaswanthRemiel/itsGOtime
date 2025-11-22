@@ -2,5 +2,5 @@
 2:I[44303,["/itsGOtime/_next/static/chunks/cc3743a8e810fc5b.js"],"Dashboard"]
 3:I[31961,["/itsGOtime/_next/static/chunks/fe1dedb60facb5d2.js"],"OutletBoundary"]
 4:"$Sreact.suspense"
-0:{"buildId":"br6Ywr6_2e3OeZlkZLTJf","rsc":["$","$1","c",{"children":[["$","$L2",null,{}],[["$","script","script-0",{"src":"/itsGOtime/_next/static/chunks/cc3743a8e810fc5b.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+0:{"buildId":"aE7feTy4JNK-YJY_VpW26","rsc":["$","$1","c",{"children":[["$","$L2",null,{}],[["$","script","script-0",{"src":"/itsGOtime/_next/static/chunks/cc3743a8e810fc5b.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
 5:null
