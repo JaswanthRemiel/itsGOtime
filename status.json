@@ -1,22 +1,21 @@
 {
-  "generated_at": "2025-11-22T15:25:38Z",
+  "generated_at": "2025-11-22T15:38:56Z",
   "results": [
     {
       "name": "example",
       "url": "https://example.com",
-      "timestamp": "2025-11-22T15:25:28Z",
+      "timestamp": "2025-11-22T15:38:55Z",
       "up": true,
       "status": 200,
-      "latency_ms": 137
+      "latency_ms": 122
     },
     {
       "name": "google",
       "url": "https://www.google.com",
-      "timestamp": "2025-11-22T15:25:38Z",
-      "up": false,
-      "status": 0,
-      "latency_ms": 5004,
-      "error": "Head \"https://www.google.com\": context deadline exceeded"
+      "timestamp": "2025-11-22T15:38:56Z",
+      "up": true,
+      "status": 200,
+      "latency_ms": 139
     }
   ]
 }
