@@ -1,4 +1,10 @@
 {
+  "backend server": [
+    {
+      "timestamp": "2025-11-22T20:34:57Z",
+      "up": false
+    }
+  ],
   "example": [
     {
       "timestamp": "2025-11-22T20:17:55Z",
@@ -9,6 +15,12 @@
       "up": true
     }
   ],
+  "github projects": [
+    {
+      "timestamp": "2025-11-22T20:34:57Z",
+      "up": true
+    }
+  ],
   "google": [
     {
       "timestamp": "2025-11-22T20:17:55Z",
@@ -16,6 +28,12 @@
     },
     {
       "timestamp": "2025-11-22T20:27:56Z",
+      "up": true
+    }
+  ],
+  "portfolio": [
+    {
+      "timestamp": "2025-11-22T20:34:51Z",
       "up": true
     }
   ]
