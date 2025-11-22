@@ -3,6 +3,10 @@
     {
       "timestamp": "2025-11-22T20:34:57Z",
       "up": false
+    },
+    {
+      "timestamp": "2025-11-22T20:39:57Z",
+      "up": false
     }
   ],
   "example": [
@@ -19,6 +23,10 @@
     {
       "timestamp": "2025-11-22T20:34:57Z",
       "up": true
+    },
+    {
+      "timestamp": "2025-11-22T20:39:57Z",
+      "up": true
     }
   ],
   "google": [
@@ -34,6 +42,10 @@
   "portfolio": [
     {
       "timestamp": "2025-11-22T20:34:51Z",
+      "up": true
+    },
+    {
+      "timestamp": "2025-11-22T20:39:56Z",
       "up": true
     }
   ]
