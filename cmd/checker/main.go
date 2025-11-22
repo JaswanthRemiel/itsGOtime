@@ -209,7 +209,13 @@ func main() {
 				Timestamp: res.Timestamp,
 				Up:        res.Up,
 			})
-			history[t.Name] = limitHistoryPoints(history[t.Name], 60)
+			// Keep 24 hours of history
+			// 24 hours * 3600 seconds / interval = number of points
+			maxPoints := 86400 / interval
+			if maxPoints < 1 {
+				maxPoints = 1
+			}
+			history[t.Name] = limitHistoryPoints(history[t.Name], maxPoints)
 		} else {
 			if len(lastPoints) > 0 {
 				latest := lastPoints[len(lastPoints)-1]
@@ -232,7 +238,12 @@ func main() {
 					Timestamp: res.Timestamp,
 					Up:        res.Up,
 				})
-				history[t.Name] = limitHistoryPoints(history[t.Name], 60)
+				// Keep 24 hours of history
+				maxPoints := 86400 / interval
+				if maxPoints < 1 {
+					maxPoints = 1
+				}
+				history[t.Name] = limitHistoryPoints(history[t.Name], maxPoints)
 			}
 		}
 	}
