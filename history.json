@@ -3,11 +3,19 @@
     {
       "timestamp": "2025-11-22T20:17:55Z",
       "up": true
+    },
+    {
+      "timestamp": "2025-11-22T20:27:56Z",
+      "up": true
     }
   ],
   "google": [
     {
       "timestamp": "2025-11-22T20:17:55Z",
+      "up": true
+    },
+    {
+      "timestamp": "2025-11-22T20:27:56Z",
       "up": true
     }
   ]
