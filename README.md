@@ -1,4 +1,5 @@
 # itsGOtime
+![Website](https://img.shields.io/website?url=http%3A%2F%2Fgithub.remiel.work%2FitsGOtime%2F&up_message=online&label=demo)
 
 
 https://github.com/user-attachments/assets/da5a87e6-fd5e-4096-a572-f3a8806e82a1
