@@ -209,8 +209,7 @@ func main() {
 				Timestamp: res.Timestamp,
 				Up:        res.Up,
 			})
-			// Keep 24 hours of history
-			// 24 hours * 3600 seconds / interval = number of points
+
 			maxPoints := 86400 / interval
 			if maxPoints < 1 {
 				maxPoints = 1
@@ -238,7 +237,7 @@ func main() {
 					Timestamp: res.Timestamp,
 					Up:        res.Up,
 				})
-				// Keep 24 hours of history
+				// Keepin 24 hours of history
 				maxPoints := 86400 / interval
 				if maxPoints < 1 {
 					maxPoints = 1

@@ -89,7 +89,6 @@ export function Dashboard() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
-      {/* Main Content */}
       <main className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="flex flex-col space-y-2">
           <div className="flex items-center justify-between">
@@ -117,7 +116,6 @@ export function Dashboard() {
           </div>
         </div>
 
-        {/* Summary Cards */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -175,7 +173,6 @@ export function Dashboard() {
           </Card>
         </div>
 
-        {/* Tabs and Main List */}
         <Tabs defaultValue="all" className="space-y-4">
           <div className="flex items-center justify-between">
             <TabsList>
@@ -223,7 +220,6 @@ export function Dashboard() {
         </Tabs>
       </main>
 
-      {/* CommandDialog for the Ctrl+K search functionality */}
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Search monitors by name or URL..." />
         <CommandList>
