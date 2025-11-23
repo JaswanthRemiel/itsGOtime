@@ -163,6 +163,10 @@
     {
       "timestamp": "2025-11-23T13:01:54Z",
       "up": false
+    },
+    {
+      "timestamp": "2025-11-23T13:30:51Z",
+      "up": false
     }
   ],
   "example": [
@@ -339,6 +343,10 @@
     {
       "timestamp": "2025-11-23T13:01:54Z",
       "up": true
+    },
+    {
+      "timestamp": "2025-11-23T13:30:51Z",
+      "up": true
     }
   ],
   "google": [
@@ -514,6 +522,10 @@
     },
     {
       "timestamp": "2025-11-23T13:01:54Z",
+      "up": true
+    },
+    {
+      "timestamp": "2025-11-23T13:30:45Z",
       "up": true
     }
   ]
