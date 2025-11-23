@@ -1,6 +1,10 @@
 # itsGOtime
 
-This template runs site checks in GitHub Actions and publishes a tiny dashboard to GitHub Pages.
+
+https://github.com/user-attachments/assets/da5a87e6-fd5e-4096-a572-f3a8806e82a1
+
+
+This template runs site checks in GitHub Actions and publishes a Next.js dashboard to GitHub Pages.
 
 How to use:
 1. Edit `monitors.yaml` to list your targets.
