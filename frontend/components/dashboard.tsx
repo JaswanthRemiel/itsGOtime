@@ -93,8 +93,8 @@ export function Dashboard() {
       <main className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="flex flex-col space-y-2">
           <div className="flex items-center justify-between">
-            <h2 className="text-3xl font-bold tracking-tight text-blue-600">
-              itsGOtime
+            <h2 className="text-3xl font-bold tracking-tight">
+              its<span className="text-blue-600">GO</span>time
             </h2>
             <div className="hidden text-sm text-muted-foreground md:block">
               Press{" "}
