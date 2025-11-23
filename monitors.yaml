@@ -23,3 +23,10 @@ targets:
     retries: 1
     timeout_seconds: 8
     interval_seconds: 60
+  - name: sanjeevi porfolio
+    url: https://sanjeevi.cv
+    method: GET
+    expect_status: 200
+    retries: 1
+    timeout_seconds: 8
+    interval_seconds: 60
