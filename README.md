@@ -1,6 +1,6 @@
 # itsGOtime
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/jaswanthremiel/itsGOtime)
- ![Website](https://img.shields.io/website?url=http%3A%2F%2Fgithub.remiel.work%2FitsGOtime%2F&up_message=online&label=demo) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jaswanthremiel/itsGOtime/check.yml)  ![GitHub last commit](https://img.shields.io/github/last-commit/jaswanthremiel/itsGOtime)
+ ![Website](https://img.shields.io/website?url=http%3A%2F%2Fgithub.remiel.work%2FitsGOtime%2F&up_message=online&label=demo) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jaswanthremiel/itsGOtime/check.yml)  ![GitHub last commit](https://img.shields.io/github/last-commit/jaswanthremiel/itsGOtime) [![Go Report Card](https://goreportcard.com/badge/github.com/jaswanthremiel/itsGOtime)](https://goreportcard.com/report/github.com/jaswanthremiel/itsGOtime)
 
 
 
