@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 )
@@ -15,7 +14,7 @@ import (
 // or if the JSON content is malformed.
 func loadHistory(path string) (History, error) {
 	h := History{}
-	b, err := ioutil.ReadFile(path)
+	b, err := os.ReadFile(path)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
 			return h, nil
@@ -43,7 +42,7 @@ func saveJSON(path string, v interface{}) error {
 	if dir != "." && dir != "" {
 		_ = os.MkdirAll(dir, 0755)
 	}
-	return ioutil.WriteFile(path, b, 0644)
+	return os.WriteFile(path, b, 0644)
 }
 
 // limitHistoryPoints trims the history slice to keep only the most recent entries.

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"io/ioutil"
+	"os"
 
 	"gopkg.in/yaml.v3"
 )
@@ -12,7 +12,7 @@ import (
 // Returns the parsed Config and any error encountered during file reading or parsing.
 func loadConfig(path string) (Config, error) {
 	var cfg Config
-	b, err := ioutil.ReadFile(path)
+	b, err := os.ReadFile(path)
 	if err != nil {
 		return cfg, err
 	}
