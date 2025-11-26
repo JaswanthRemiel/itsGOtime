@@ -1,184 +1,25 @@
 package main
 
 import (
-	"context"
-	"encoding/json"
-	"errors"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"os"
 	"path/filepath"
 	"time"
-
-	"gopkg.in/yaml.v3"
 )
 
-type Target struct {
-	Name            string `yaml:"name"`
-	URL             string `yaml:"url"`
-	Method          string `yaml:"method"`
-	ExpectStatus    int    `yaml:"expect_status"`
-	Retries         int    `yaml:"retries"`
-	TimeoutSeconds  int    `yaml:"timeout_seconds"`
-	IntervalSeconds int    `yaml:"interval_seconds"`
-}
-
-type Config struct {
-	IntervalSeconds int      `yaml:"interval_seconds"`
-	Targets         []Target `yaml:"targets"`
-}
-
-type CheckResult struct {
-	Name      string `json:"name"`
-	URL       string `json:"url"`
-	Timestamp string `json:"timestamp"`
-	Up        bool   `json:"up"`
-	Status    int    `json:"status"`
-	LatencyMs int64  `json:"latency_ms"`
-	Error     string `json:"error,omitempty"`
-}
-
-type HistoryPoint struct {
-	Timestamp string `json:"timestamp"`
-	Up        bool   `json:"up"`
-}
-
-type History map[string][]HistoryPoint
-
-func loadConfig(path string) (Config, error) {
-	var cfg Config
-	b, err := ioutil.ReadFile(path)
-	if err != nil {
-		return cfg, err
-	}
-	if err := yaml.Unmarshal(b, &cfg); err != nil {
-		return cfg, err
-	}
-	if cfg.IntervalSeconds == 0 {
-		cfg.IntervalSeconds = 60
-	}
-	return cfg, nil
-}
-
-func loadHistory(path string) (History, error) {
-	h := History{}
-	b, err := ioutil.ReadFile(path)
-	if err != nil {
-		if errors.Is(err, os.ErrNotExist) {
-			return h, nil
-		}
-		return nil, err
-	}
-	if len(b) == 0 {
-		return h, nil
-	}
-	if err := json.Unmarshal(b, &h); err != nil {
-		return nil, err
-	}
-	return h, nil
-}
-
-func saveJSON(path string, v interface{}) error {
-	b, err := json.MarshalIndent(v, "", "  ")
-	if err != nil {
-		return err
-	}
-	dir := filepath.Dir(path)
-	if dir != "." && dir != "" {
-		_ = os.MkdirAll(dir, 0755)
-	}
-	return ioutil.WriteFile(path, b, 0644)
-}
-
-func now() time.Time {
-	return time.Now()
-}
-
-func shouldCheck(last []HistoryPoint, intervalSec int) bool {
-	if intervalSec <= 0 {
-		intervalSec = 60
-	}
-	if len(last) == 0 {
-		return true
-	}
-	latest := last[len(last)-1]
-	t, err := time.Parse(time.RFC3339, latest.Timestamp)
-	if err != nil {
-		return true
-	}
-	next := t.Add(time.Duration(intervalSec) * time.Second)
-	return now().After(next) || now().Equal(next)
-}
-
-func performCheck(t Target) (CheckResult, error) {
-	timeout := time.Duration(10) * time.Second
-	if t.TimeoutSeconds > 0 {
-		timeout = time.Duration(t.TimeoutSeconds) * time.Second
-	}
-	method := t.Method
-	if method == "" {
-		method = "GET"
-	}
-	client := &http.Client{Timeout: timeout}
-
-	var lastErr string
-	var finalStatus int
-	var latency time.Duration
-
-	attempts := 1
-	if t.Retries > 0 {
-		attempts = 1 + t.Retries
-	}
-
-	for i := 0; i < attempts; i++ {
-		start := time.Now()
-		ctx, cancel := context.WithTimeout(context.Background(), timeout)
-		req, _ := http.NewRequestWithContext(ctx, method, t.URL, nil)
-		resp, err := client.Do(req)
-		latency = time.Since(start)
-		if err != nil {
-			lastErr = err.Error()
-			cancel()
-			if i < attempts-1 {
-				time.Sleep(200 * time.Millisecond)
-				continue
-			}
-			return CheckResult{
-				Name:      t.Name,
-				URL:       t.URL,
-				Timestamp: now().Format(time.RFC3339),
-				Up:        false,
-				Status:    0,
-				LatencyMs: latency.Milliseconds(),
-				Error:     lastErr,
-			}, nil
-		}
-		finalStatus = resp.StatusCode
-		_ = resp.Body.Close()
-		cancel()
-		break
-	}
-
-	up := finalStatus != 0 && (t.ExpectStatus == 0 || finalStatus == t.ExpectStatus)
-
-	return CheckResult{
-		Name:      t.Name,
-		URL:       t.URL,
-		Timestamp: now().Format(time.RFC3339),
-		Up:        up,
-		Status:    finalStatus,
-		LatencyMs: latency.Milliseconds(),
-	}, nil
-}
-
-func limitHistoryPoints(points []HistoryPoint, limit int) []HistoryPoint {
-	if len(points) <= limit {
-		return points
-	}
-	return points[len(points)-limit:]
-}
-
+// main is the entry point of the uptime checker application.
+// It performs the following operations:
+//  1. Loads the monitoring configuration from monitors.yaml
+//  2. Loads the existing check history from gh-pages/history.json
+//  3. Iterates through each configured target and performs health checks
+//     based on their individual or global interval settings
+//  4. Updates the history with new check results
+//  5. Writes the current status to status.json
+//  6. Saves the updated history back to gh-pages/history.json
+//
+// The checker respects per-target intervals and only performs a check
+// when the configured time has elapsed since the last check.
+// History is automatically trimmed to maintain approximately 24 hours of data.
 func main() {
 	cfg, err := loadConfig("monitors.yaml")
 	if err != nil {
