@@ -3103,6 +3103,10 @@
     {
       "timestamp": "2025-12-06T22:22:52Z",
       "up": false
+    },
+    {
+      "timestamp": "2025-12-06T22:41:20Z",
+      "up": false
     }
   ],
   "example": [
@@ -6218,6 +6222,10 @@
     },
     {
       "timestamp": "2025-12-06T22:22:52Z",
+      "up": true
+    },
+    {
+      "timestamp": "2025-12-06T22:41:20Z",
       "up": true
     }
   ],
@@ -9335,6 +9343,10 @@
     {
       "timestamp": "2025-12-06T22:22:48Z",
       "up": true
+    },
+    {
+      "timestamp": "2025-12-06T22:41:13Z",
+      "up": true
     }
   ],
   "sanjeevi porfolio": [
@@ -12240,6 +12252,10 @@
     },
     {
       "timestamp": "2025-12-06T22:22:52Z",
+      "up": true
+    },
+    {
+      "timestamp": "2025-12-06T22:41:20Z",
       "up": true
     }
   ]
