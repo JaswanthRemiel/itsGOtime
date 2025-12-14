@@ -1,37 +1,38 @@
 {
-  "generated_at": "2025-12-14T11:40:10Z",
+  "generated_at": "2025-12-14T11:54:01Z",
   "results": [
     {
       "name": "portfolio",
       "url": "https://remiel.work",
-      "timestamp": "2025-12-14T11:40:09Z",
+      "timestamp": "2025-12-14T11:53:44Z",
       "up": true,
       "status": 200,
-      "latency_ms": 1068
+      "latency_ms": 642
     },
     {
       "name": "backend server",
       "url": "https://api.remiel.work",
-      "timestamp": "2025-12-14T11:40:09Z",
+      "timestamp": "2025-12-14T11:54:00Z",
       "up": false,
-      "status": 404,
-      "latency_ms": 494
+      "status": 0,
+      "latency_ms": 8007,
+      "error": "Get \"https://api.remiel.work\": context deadline exceeded"
     },
     {
       "name": "github projects",
       "url": "https://github.remiel.work",
-      "timestamp": "2025-12-14T11:40:09Z",
+      "timestamp": "2025-12-14T11:54:00Z",
       "up": true,
       "status": 200,
-      "latency_ms": 123
+      "latency_ms": 127
     },
     {
       "name": "sanjeevi porfolio",
       "url": "https://sanjeevi.cv",
-      "timestamp": "2025-12-14T11:40:10Z",
+      "timestamp": "2025-12-14T11:54:01Z",
       "up": true,
       "status": 200,
-      "latency_ms": 601
+      "latency_ms": 980
     }
   ]
 }
