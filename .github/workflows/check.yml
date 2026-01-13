@@ -123,5 +123,7 @@ jobs:
             echo "no changes"
           else
             git commit -m "Deploy to gh-pages"
+            # Pull and rebase to handle concurrent updates
+            git pull --rebase origin gh-pages
             git push "https://x-access-token:${TOKEN}@github.com/${REPO}.git" HEAD:gh-pages
           fi
