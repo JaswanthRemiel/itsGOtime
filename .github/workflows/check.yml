@@ -124,7 +124,6 @@ jobs:
           else
             git commit -m "Deploy to gh-pages"
             # Pull and rebase to handle concurrent updates
-            # Use theirs strategy to prefer our regenerated content in case of conflicts
-            git pull --rebase -X theirs origin gh-pages
+            git pull --rebase origin gh-pages
             git push "https://x-access-token:${TOKEN}@github.com/${REPO}.git" HEAD:gh-pages
           fi
