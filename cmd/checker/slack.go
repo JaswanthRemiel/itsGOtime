@@ -10,43 +10,39 @@ import (
 
 // SlackPayload represents the JSON payload structure for Slack incoming webhooks.
 type SlackPayload struct {
-	Text        string            `json:"text,omitempty"`
-	Attachments []SlackAttachment `json:"attachments,omitempty"`
+	Attachments []SlackAttachment `json:"attachments"`
 }
 
 // SlackAttachment represents an attachment block in Slack with colored borders.
 type SlackAttachment struct {
-	Color  string       `json:"color"`
-	Blocks []SlackBlock `json:"blocks"`
+	Color     string       `json:"color,omitempty"`
+	Pretext   string       `json:"pretext,omitempty"`
+	Title     string       `json:"title,omitempty"`
+	TitleLink string       `json:"title_link,omitempty"`
+	Fields    []SlackField `json:"fields,omitempty"`
+	Ts        int64        `json:"ts,omitempty"`
 }
 
-// SlackBlock represents a block inside the attachment.
-type SlackBlock struct {
-	Type     string            `json:"type"`
-	Text     *SlackText        `json:"text,omitempty"`
-	Fields   []SlackText       `json:"fields,omitempty"`
-	Elements []SlackText       `json:"elements,omitempty"`
-}
-
-// SlackText represents text elements inside Slack blocks.
-type SlackText struct {
-	Type string `json:"type"`
-	Text string `json:"text"`
+// SlackField represents a field inside the legacy attachment.
+type SlackField struct {
+	Title string `json:"title"`
+	Value string `json:"value"`
+	Short bool   `json:"short"`
 }
 
 // sendSlackAlert sends a structured alert to a Slack channel via an incoming webhook URL.
 func sendSlackAlert(webhookURL string, res CheckResult, isRecovery bool) error {
 	var color string
-	var headerText string
+	var pretext string
 	var statusText string
 
 	if isRecovery {
 		color = "#2eb67d" // Slack Green
-		headerText = fmt.Sprintf("✅ *RECOVERY: %s is back UP*", res.Name)
+		pretext = fmt.Sprintf("✅ *RECOVERY: %s is back UP*", res.Name)
 		statusText = fmt.Sprintf("HTTP Status: %d", res.Status)
 	} else {
 		color = "#e01e5a" // Slack Red
-		headerText = fmt.Sprintf("🚨 *DOWNTIME: %s is DOWN*", res.Name)
+		pretext = fmt.Sprintf("🚨 *DOWNTIME: %s is DOWN*", res.Name)
 		if res.Status > 0 {
 			statusText = fmt.Sprintf("HTTP Status: %d", res.Status)
 		} else if res.Error != "" {
@@ -57,49 +53,25 @@ func sendSlackAlert(webhookURL string, res CheckResult, isRecovery bool) error {
 	}
 
 	payload := SlackPayload{
-		Text: headerText,
 		Attachments: []SlackAttachment{
 			{
-				Color: color,
-				Blocks: []SlackBlock{
+				Color:     color,
+				Pretext:   pretext,
+				Title:     res.Name,
+				TitleLink: res.URL,
+				Fields: []SlackField{
 					{
-						Type: "section",
-						Text: &SlackText{
-							Type: "mrkdwn",
-							Text: headerText,
-						},
+						Title: "Status",
+						Value: statusText,
+						Short: true,
 					},
 					{
-						Type: "section",
-						Fields: []SlackText{
-							{
-								Type: "mrkdwn",
-								Text: fmt.Sprintf("*Name:*\n%s", res.Name),
-							},
-							{
-								Type: "mrkdwn",
-								Text: fmt.Sprintf("*URL:*\n<%s|Link>", res.URL),
-							},
-							{
-								Type: "mrkdwn",
-								Text: fmt.Sprintf("*Status:*\n%s", statusText),
-							},
-							{
-								Type: "mrkdwn",
-								Text: fmt.Sprintf("*Response Time:*\n%d ms", res.LatencyMs),
-							},
-						},
-					},
-					{
-						Type: "context",
-						Elements: []SlackText{
-							{
-								Type: "mrkdwn",
-								Text: fmt.Sprintf("Checked at: %s", res.Timestamp),
-							},
-						},
+						Title: "Response Time",
+						Value: fmt.Sprintf("%d ms", res.LatencyMs),
+						Short: true,
 					},
 				},
+				Ts: time.Now().Unix(),
 			},
 		},
 	}
