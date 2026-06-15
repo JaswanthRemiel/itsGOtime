@@ -112,6 +112,7 @@ func main() {
 func handleAlerting(res CheckResult, lastPoints []HistoryPoint) {
 	webhookURL := os.Getenv("SLACK_WEBHOOK_URL")
 	if webhookURL == "" {
+		fmt.Printf("Alerting: SLACK_WEBHOOK_URL is not set, skipping alerts for %s\n", res.Name)
 		return
 	}
 
@@ -121,15 +122,21 @@ func handleAlerting(res CheckResult, lastPoints []HistoryPoint) {
 		prevUp = lastPoints[len(lastPoints)-1].Up
 	}
 
+	fmt.Printf("Alerting: Checking target %s (Up: %v, PrevUp: %v, HasHistory: %v)\n", res.Name, res.Up, prevUp, hasHistory)
+
 	if !res.Up && (prevUp || !hasHistory) {
-		// Downtime alert: was UP (or first check run) and is now DOWN
+		fmt.Printf("Alerting: Sending downtime alert for %s...\n", res.Name)
 		if err := sendSlackAlert(webhookURL, res, false); err != nil {
 			fmt.Fprintf(os.Stderr, "failed to send slack downtime alert for %s: %v\n", res.Name, err)
+		} else {
+			fmt.Printf("Alerting: Slack downtime alert sent successfully for %s\n", res.Name)
 		}
 	} else if res.Up && !prevUp && hasHistory {
-		// Recovery alert: was DOWN and is now UP
+		fmt.Printf("Alerting: Sending recovery alert for %s...\n", res.Name)
 		if err := sendSlackAlert(webhookURL, res, true); err != nil {
 			fmt.Fprintf(os.Stderr, "failed to send slack recovery alert for %s: %v\n", res.Name, err)
+		} else {
+			fmt.Printf("Alerting: Slack recovery alert sent successfully for %s\n", res.Name)
 		}
 	}
 }

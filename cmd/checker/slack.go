@@ -10,7 +10,8 @@ import (
 
 // SlackPayload represents the JSON payload structure for Slack incoming webhooks.
 type SlackPayload struct {
-	Attachments []SlackAttachment `json:"attachments"`
+	Text        string            `json:"text,omitempty"`
+	Attachments []SlackAttachment `json:"attachments,omitempty"`
 }
 
 // SlackAttachment represents an attachment block in Slack with colored borders.
@@ -42,7 +43,7 @@ func sendSlackAlert(webhookURL string, res CheckResult, isRecovery bool) error {
 	if isRecovery {
 		color = "#2eb67d" // Slack Green
 		headerText = fmt.Sprintf("✅ *RECOVERY: %s is back UP*", res.Name)
-		statusText = fmt.Sprintf("HTTP Status: %d (Expected: %d)", res.Status, res.Status) // res.Status is HTTP status code (200 is typical)
+		statusText = fmt.Sprintf("HTTP Status: %d", res.Status)
 	} else {
 		color = "#e01e5a" // Slack Red
 		headerText = fmt.Sprintf("🚨 *DOWNTIME: %s is DOWN*", res.Name)
@@ -56,6 +57,7 @@ func sendSlackAlert(webhookURL string, res CheckResult, isRecovery bool) error {
 	}
 
 	payload := SlackPayload{
+		Text: headerText,
 		Attachments: []SlackAttachment{
 			{
 				Color: color,
@@ -107,6 +109,7 @@ func sendSlackAlert(webhookURL string, res CheckResult, isRecovery bool) error {
 		return fmt.Errorf("failed to marshal slack payload: %w", err)
 	}
 
+	fmt.Printf("Alerting: Sending HTTP POST payload to Slack webhook (%d bytes)...\n", len(body))
 	req, err := http.NewRequest("POST", webhookURL, bytes.NewBuffer(body))
 	if err != nil {
 		return fmt.Errorf("failed to create http request: %w", err)
@@ -119,6 +122,8 @@ func sendSlackAlert(webhookURL string, res CheckResult, isRecovery bool) error {
 		return fmt.Errorf("failed to send HTTP request to Slack: %w", err)
 	}
 	defer resp.Body.Close()
+
+	fmt.Printf("Alerting: Slack response status: %s\n", resp.Status)
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
 		return fmt.Errorf("slack responded with non-2xx status: %d", resp.StatusCode)
