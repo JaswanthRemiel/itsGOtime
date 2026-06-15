@@ -60,6 +60,8 @@ jobs:
           fi
 
       - name: Run checker
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           go run ./cmd/checker
           # status.json is produced in root, history.json in gh-pages/

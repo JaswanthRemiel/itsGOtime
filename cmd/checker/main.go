@@ -45,6 +45,7 @@ func main() {
 				fmt.Fprintf(os.Stderr, "error checking %s: %v\n", t.Name, err)
 				continue
 			}
+			handleAlerting(res, lastPoints)
 			results = append(results, res)
 			history[t.Name] = append(history[t.Name], HistoryPoint{
 				Timestamp: res.Timestamp,
@@ -73,6 +74,7 @@ func main() {
 					fmt.Fprintf(os.Stderr, "error checking %s: %v\n", t.Name, err)
 					continue
 				}
+				handleAlerting(res, lastPoints)
 				results = append(results, res)
 				history[t.Name] = append(history[t.Name], HistoryPoint{
 					Timestamp: res.Timestamp,
@@ -103,5 +105,31 @@ func main() {
 
 	if err := saveJSON(historyPath, history); err != nil {
 		_ = saveJSON("history.json", history)
+	}
+}
+
+// handleAlerting checks if the status of a target transitioned and triggers Slack alerts if SLACK_WEBHOOK_URL is set.
+func handleAlerting(res CheckResult, lastPoints []HistoryPoint) {
+	webhookURL := os.Getenv("SLACK_WEBHOOK_URL")
+	if webhookURL == "" {
+		return
+	}
+
+	var prevUp bool = true
+	hasHistory := len(lastPoints) > 0
+	if hasHistory {
+		prevUp = lastPoints[len(lastPoints)-1].Up
+	}
+
+	if !res.Up && (prevUp || !hasHistory) {
+		// Downtime alert: was UP (or first check run) and is now DOWN
+		if err := sendSlackAlert(webhookURL, res, false); err != nil {
+			fmt.Fprintf(os.Stderr, "failed to send slack downtime alert for %s: %v\n", res.Name, err)
+		}
+	} else if res.Up && !prevUp && hasHistory {
+		// Recovery alert: was DOWN and is now UP
+		if err := sendSlackAlert(webhookURL, res, true); err != nil {
+			fmt.Fprintf(os.Stderr, "failed to send slack recovery alert for %s: %v\n", res.Name, err)
+		}
 	}
 }
