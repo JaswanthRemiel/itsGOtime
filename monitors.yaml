@@ -22,3 +22,10 @@ targets:
     retries: 1
     timeout_seconds: 8
     interval_seconds: 60
+  - name: check downtime
+    url: https://remiel.works
+    method: GET
+    expect_status: 200
+    retries: 1
+    timeout_seconds: 8
+    interval_seconds: 60
