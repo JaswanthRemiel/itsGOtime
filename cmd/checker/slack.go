@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -15,12 +16,13 @@ type SlackPayload struct {
 
 // SlackAttachment represents an attachment block in Slack with colored borders.
 type SlackAttachment struct {
-	Color     string       `json:"color,omitempty"`
-	Pretext   string       `json:"pretext,omitempty"`
-	Title     string       `json:"title,omitempty"`
-	TitleLink string       `json:"title_link,omitempty"`
-	Fields    []SlackField `json:"fields,omitempty"`
-	Ts        int64        `json:"ts,omitempty"`
+	Color     string        `json:"color,omitempty"`
+	Pretext   string        `json:"pretext,omitempty"`
+	Title     string        `json:"title,omitempty"`
+	TitleLink string        `json:"title_link,omitempty"`
+	Fields    []SlackField  `json:"fields,omitempty"`
+	Actions   []SlackAction `json:"actions,omitempty"`
+	Ts        int64         `json:"ts,omitempty"`
 }
 
 // SlackField represents a field inside the legacy attachment.
@@ -28,6 +30,13 @@ type SlackField struct {
 	Title string `json:"title"`
 	Value string `json:"value"`
 	Short bool   `json:"short"`
+}
+
+// SlackAction represents an interactive button action.
+type SlackAction struct {
+	Type string `json:"type"`
+	Text string `json:"text"`
+	URL  string `json:"url"`
 }
 
 // sendSlackAlert sends a structured alert to a Slack channel via an incoming webhook URL.
@@ -52,6 +61,14 @@ func sendSlackAlert(webhookURL string, res CheckResult, isRecovery bool) error {
 		}
 	}
 
+	// Dynamic GitHub repository URL generation
+	repoURL := "https://github.com/JaswanthRemiel/itsGOtime"
+	serverURL := os.Getenv("GITHUB_SERVER_URL")
+	repoPath := os.Getenv("GITHUB_REPOSITORY")
+	if serverURL != "" && repoPath != "" {
+		repoURL = fmt.Sprintf("%s/%s", serverURL, repoPath)
+	}
+
 	payload := SlackPayload{
 		Attachments: []SlackAttachment{
 			{
@@ -69,6 +86,18 @@ func sendSlackAlert(webhookURL string, res CheckResult, isRecovery bool) error {
 						Title: "Response Time",
 						Value: fmt.Sprintf("%d ms", res.LatencyMs),
 						Short: true,
+					},
+				},
+				Actions: []SlackAction{
+					{
+						Type: "button",
+						Text: "🌐 Visit Website",
+						URL:  res.URL,
+					},
+					{
+						Type: "button",
+						Text: "💻 View Repository",
+						URL:  repoURL,
 					},
 				},
 				Ts: time.Now().Unix(),
