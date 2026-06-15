@@ -1,37 +1,37 @@
 {
-  "generated_at": "2026-06-15T17:59:32Z",
+  "generated_at": "2026-06-15T18:11:11Z",
   "results": [
     {
       "name": "portfolio",
       "url": "https://remiel.work",
-      "timestamp": "2026-06-15T17:59:31Z",
+      "timestamp": "2026-06-15T18:11:10Z",
       "up": true,
       "status": 200,
-      "latency_ms": 390
+      "latency_ms": 126
     },
     {
       "name": "github projects",
       "url": "https://github.remiel.work",
-      "timestamp": "2026-06-15T17:59:31Z",
+      "timestamp": "2026-06-15T18:11:10Z",
       "up": true,
       "status": 200,
-      "latency_ms": 158
+      "latency_ms": 132
     },
     {
       "name": "sanjeevi porfolio",
       "url": "https://sanjeevi.cv",
-      "timestamp": "2026-06-15T17:59:32Z",
+      "timestamp": "2026-06-15T18:11:11Z",
       "up": true,
       "status": 200,
-      "latency_ms": 470
+      "latency_ms": 319
     },
     {
       "name": "check downtime",
       "url": "https://remiel.works",
-      "timestamp": "2026-06-15T17:59:32Z",
+      "timestamp": "2026-06-15T18:11:11Z",
       "up": false,
       "status": 0,
-      "latency_ms": 14,
+      "latency_ms": 215,
       "error": "Get \"https://remiel.works\": dial tcp: lookup remiel.works on 127.0.0.53:53: no such host"
     }
   ]
