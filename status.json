@@ -1,39 +1,39 @@
 {
-  "generated_at": "2026-07-26T18:41:30Z",
+  "generated_at": "2026-07-26T19:56:46Z",
   "results": [
     {
       "name": "portfolio",
       "url": "https://remiel.work",
-      "timestamp": "2026-07-26T18:41:12Z",
+      "timestamp": "2026-07-26T19:56:29Z",
       "up": false,
       "status": 0,
-      "latency_ms": 8004,
+      "latency_ms": 8003,
       "error": "Get \"https://remiel.work\": context deadline exceeded"
     },
     {
       "name": "github projects",
       "url": "https://github.remiel.work",
-      "timestamp": "2026-07-26T18:41:13Z",
+      "timestamp": "2026-07-26T19:56:29Z",
       "up": false,
       "status": 0,
-      "latency_ms": 188,
+      "latency_ms": 115,
       "error": "Get \"https://github.remiel.work\": dial tcp: lookup github.remiel.work on 127.0.0.53:53: no such host"
     },
     {
       "name": "sanjeevi porfolio",
       "url": "https://sanjeevi.cv",
-      "timestamp": "2026-07-26T18:41:13Z",
+      "timestamp": "2026-07-26T19:56:30Z",
       "up": true,
       "status": 200,
-      "latency_ms": 528
+      "latency_ms": 547
     },
     {
       "name": "check downtime",
       "url": "https://remiel.work",
-      "timestamp": "2026-07-26T18:41:30Z",
+      "timestamp": "2026-07-26T19:56:46Z",
       "up": false,
       "status": 0,
-      "latency_ms": 8000,
+      "latency_ms": 8003,
       "error": "Get \"https://remiel.work\": context deadline exceeded"
     }
   ]
