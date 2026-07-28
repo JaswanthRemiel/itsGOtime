@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-07-28T17:54:32Z",
+  "generated_at": "2026-07-28T19:36:43Z",
   "results": [
     {
       "name": "portfolio",
       "url": "https://remiel.work",
-      "timestamp": "2026-07-28T17:54:15Z",
+      "timestamp": "2026-07-28T19:36:26Z",
       "up": false,
       "status": 0,
       "latency_ms": 8003,
@@ -13,24 +13,24 @@
     {
       "name": "github projects",
       "url": "https://github.remiel.work",
-      "timestamp": "2026-07-28T17:54:16Z",
+      "timestamp": "2026-07-28T19:36:26Z",
       "up": false,
       "status": 0,
-      "latency_ms": 205,
+      "latency_ms": 108,
       "error": "Get \"https://github.remiel.work\": dial tcp: lookup github.remiel.work on 127.0.0.53:53: no such host"
     },
     {
       "name": "sanjeevi porfolio",
       "url": "https://sanjeevi.cv",
-      "timestamp": "2026-07-28T17:54:16Z",
+      "timestamp": "2026-07-28T19:36:27Z",
       "up": true,
       "status": 200,
-      "latency_ms": 552
+      "latency_ms": 501
     },
     {
       "name": "check downtime",
       "url": "https://remiel.work",
-      "timestamp": "2026-07-28T17:54:32Z",
+      "timestamp": "2026-07-28T19:36:43Z",
       "up": false,
       "status": 0,
       "latency_ms": 8003,
