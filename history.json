@@ -8307,10 +8307,6 @@
   ],
   "github projects": [
     {
-      "timestamp": "2026-04-14T17:10:32Z",
-      "up": true
-    },
-    {
       "timestamp": "2026-04-14T18:18:35Z",
       "up": true
     },
@@ -14065,6 +14061,10 @@
     {
       "timestamp": "2026-08-07T06:34:53Z",
       "up": true
+    },
+    {
+      "timestamp": "2026-08-07T07:57:45Z",
+      "up": true
     }
   ],
   "google": [
@@ -14078,10 +14078,6 @@
     }
   ],
   "portfolio": [
-    {
-      "timestamp": "2026-04-14T17:10:32Z",
-      "up": true
-    },
     {
       "timestamp": "2026-04-14T18:18:35Z",
       "up": true
@@ -19837,13 +19833,13 @@
     {
       "timestamp": "2026-08-07T06:34:53Z",
       "up": true
+    },
+    {
+      "timestamp": "2026-08-07T07:57:45Z",
+      "up": true
     }
   ],
   "sanjeevi porfolio": [
-    {
-      "timestamp": "2026-04-14T17:10:33Z",
-      "up": true
-    },
     {
       "timestamp": "2026-04-14T18:18:36Z",
       "up": true
@@ -25598,6 +25594,10 @@
     },
     {
       "timestamp": "2026-08-07T06:34:53Z",
+      "up": true
+    },
+    {
+      "timestamp": "2026-08-07T07:57:46Z",
       "up": true
     }
   ]
