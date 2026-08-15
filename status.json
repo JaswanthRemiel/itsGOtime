@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-08-15T07:01:22Z",
+  "generated_at": "2026-08-15T07:38:35Z",
   "results": [
     {
       "name": "portfolio",
       "url": "https://remiel.in",
-      "timestamp": "2026-08-15T07:01:21Z",
+      "timestamp": "2026-08-15T07:38:35Z",
       "up": true,
       "status": 200,
-      "latency_ms": 748
+      "latency_ms": 511
     },
     {
       "name": "github projects",
       "url": "https://github.remiel.in",
-      "timestamp": "2026-08-15T07:01:22Z",
+      "timestamp": "2026-08-15T07:38:35Z",
       "up": true,
       "status": 200,
-      "latency_ms": 121
+      "latency_ms": 138
     },
     {
       "name": "sanjeevi porfolio",
       "url": "https://sanjeevi.cv",
-      "timestamp": "2026-08-15T07:01:22Z",
+      "timestamp": "2026-08-15T07:38:35Z",
       "up": true,
       "status": 200,
-      "latency_ms": 367
+      "latency_ms": 592
     }
   ]
 }
