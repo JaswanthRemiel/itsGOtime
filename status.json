@@ -1,30 +1,30 @@
 {
-  "generated_at": "2026-11-22T16:32:30Z",
+  "generated_at": "2026-11-22T21:59:47Z",
   "results": [
     {
       "name": "portfolio",
       "url": "https://remiel.in",
-      "timestamp": "2026-11-22T16:32:14Z",
+      "timestamp": "2026-11-22T21:59:31Z",
       "up": true,
       "status": 200,
-      "latency_ms": 390
+      "latency_ms": 527
     },
     {
       "name": "github projects",
       "url": "https://github.remiel.in",
-      "timestamp": "2026-11-22T16:32:14Z",
+      "timestamp": "2026-11-22T21:59:31Z",
       "up": true,
       "status": 200,
-      "latency_ms": 85
+      "latency_ms": 182
     },
     {
       "name": "sanjeevi porfolio",
       "url": "https://sanjeevi.cv",
-      "timestamp": "2026-11-22T16:32:30Z",
+      "timestamp": "2026-11-22T21:59:47Z",
       "up": false,
       "status": 0,
       "latency_ms": 8002,
-      "error": "Get \"https://sanjeevi.cv\": context deadline exceeded"
+      "error": "Get \"https://sanjeevi.cv\": dial tcp 44.233.250.75:443: i/o timeout"
     }
   ]
 }
